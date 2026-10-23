@@ -13,35 +13,69 @@
  */
 
 fun main() {
-    ejercicio01()
-    ejercicio02()
-    ejercicio03()
-    ejercicio04()
-    ejercicio05()
-    ejercicio06()
-    ejercicio07()
-    ejercicio08()
-    ejercicio09()
-    ejercicio10()
-    ejercicio11()
-    ejercicio12()
-    ejercicio13()
-    ejercicio14()
-    ejercicio15()
-    ejercicio16()
-    ejercicio17()
-    ejercicio18()
-    ejercicio19()
-    ejercicio20()
-    ejercicio21()
-    ejercicio22()
-    ejercicio23()
-    ejercicio24()
-    // Voluntarios (descomenta los que hagas):
-    // ejercicio25()
-    // ejercicio26()
-    // ejercicio27()
-    // ejercicio28()
+    print("¿Qué ejercicio quieres ejecutar? (1-24): ")
+    val opcion = readln().toIntOrNull()
+
+    if (opcion == 1) {
+        ejercicio01()
+    } else if (opcion == 2) {
+        ejercicio02()
+    } else if (opcion == 3) {
+        ejercicio03()
+    } else if (opcion == 4) {
+        ejercicio04()
+    } else if (opcion == 5) {
+        ejercicio05()
+    } else if (opcion == 6) {
+        ejercicio06()
+    } else if (opcion == 7) {
+        ejercicio07()
+    } else if (opcion == 8) {
+        ejercicio08()
+    } else if (opcion == 9) {
+        ejercicio09()
+    } else if (opcion == 10) {
+        ejercicio10()
+    } else if (opcion == 11) {
+        ejercicio11()
+    } else if (opcion == 12) {
+        ejercicio12()
+    } else if (opcion == 13) {
+        ejercicio13()
+    } else if (opcion == 14) {
+        ejercicio14()
+    } else if (opcion == 15) {
+        ejercicio15()
+    } else if (opcion == 16) {
+        ejercicio16()
+    } else if (opcion == 17) {
+        ejercicio17()
+    } else if (opcion == 18) {
+        ejercicio18()
+    } else if (opcion == 19) {
+        ejercicio19()
+    } else if (opcion == 20) {
+        ejercicio20()
+    } else if (opcion == 21) {
+        ejercicio21()
+    } else if (opcion == 22) {
+        ejercicio22()
+    } else if (opcion == 23) {
+        ejercicio23()
+    } else if (opcion == 24) {
+        ejercicio24()
+        // Voluntarios (descomenta los que hagas):
+        // } else if (opcion == 25) {
+        //     ejercicio25()
+        // } else if (opcion == 26) {
+        //     ejercicio26()
+        // } else if (opcion == 27) {
+        //     ejercicio27()
+        // } else if (opcion == 28) {
+        //     ejercicio28()
+    } else {
+        println("Opción no válida.")
+    }
 }
 
 /** 1) Declara dos variables numéricas (con el valor que desees), muestra por consola la suma, resta,
@@ -197,14 +231,54 @@ fun ejercicio11() {
  *  Introduce un mes (con número del 1 al 12): 9
  *  El mes de septiembre tiene 30 dias */
 fun ejercicio12() {
-    TODO("Ejercicio 12")
+    print("Introduce un mes (con número del 1 al 12): ")
+    val mes = readln().toInt()
+
+    val nombre = when (mes) {
+        1 -> "enero"
+        2 -> "febrero"
+        3 -> "marzo"
+        4 -> "abril"
+        5 -> "mayo"
+        6 -> "junio"
+        7 -> "julio"
+        8 -> "agosto"
+        9 -> "septiembre"
+        10 -> "octubre"
+        11 -> "noviembre"
+        12 -> "diciembre"
+        else -> null
+    }
+
+    if (nombre == null) {
+        println("Mes no válido. Debe ser un número del 1 al 12.")
+        return
+    }
+
+    val dias = when (mes) {
+        2 -> "28 o 29"
+        4, 6, 9, 11 -> "30"
+        else -> "31"
+    }
+
+    println("El mes de $nombre tiene $dias dias")
 }
 
 /** 13) Crea un programa que pida por pantalla un día de la semana (como String) y nos indique si es un día
  *  laborable (considerando de lunes a viernes) o es fin de semana.
  *  A tener en cuenta: da igual que el usuario introduzca lunes, Lunes, LuNeS,... */
 fun ejercicio13() {
-    TODO("Ejercicio 13")
+    print("Introduce un día de la semana: ")
+    val dia = readln().trim().lowercase()
+
+    when (dia) {
+        "lunes", "martes", "miércoles", "miercoles", "jueves", "viernes" ->
+            println("$dia es un día laborable")
+        "sábado", "sabado", "domingo" ->
+            println("$dia es fin de semana")
+        else ->
+            println("Día no válido")
+    }
 }
 
 /** 14) Realiza una aplicación que pida por pantalla cuántas ventas ha realizado un comercial en el último mes.
@@ -212,30 +286,101 @@ fun ejercicio13() {
  *  (por ejemplo, si son 5 ventas pedirá 5 cantidades). Se irán acumulando y, al final, se mostrará por
  *  pantalla la suma de todas las ventas de ese comercial con 2 decimales. */
 fun ejercicio14() {
-    TODO("Ejercicio 14")
+    print("¿Cuántas ventas ha realizado el comercial el último mes? ")
+    val numVentas = readln().toInt()
+
+    var total = 0.0
+
+    for (i in 1..numVentas) {
+        print("Introduce la cantidad de la venta $i: ")
+        val cantidad = readln().replace(",", ".").toDouble()
+        total += cantidad
+    }
+
+    println("La suma de todas las ventas es: ${"%.2f".format(total)}")
 }
 
 /** 15) Modifica el ejercicio anterior de tal manera que el usuario vaya introduciendo ventas hasta que
  *  escriba un * (asterisco). Al finalizar, se mostrará el número de ventas realizado y la suma total de las
  *  ventas del comercial con 2 decimales. */
 fun ejercicio15() {
-    TODO("Ejercicio 15")
+    var total = 0.0
+    var numVentas = 0
+
+    while (true) {
+        print("Introduce la cantidad de la venta ${numVentas + 1} (* para terminar): ")
+        val entrada = readln().trim()
+
+        if (entrada == "*") {
+            break
+        }
+
+        val cantidad = entrada.replace(",", ".").toDoubleOrNull()
+        if (cantidad == null) {
+            println("Cantidad no válida, inténtalo de nuevo.")
+        } else {
+            total += cantidad
+            numVentas++
+        }
+    }
+
+    println("Número de ventas realizadas: $numVentas")
+    println("La suma total de las ventas es: ${"%.2f".format(total)}")
 }
 
 /** 16) Programa que pide por teclado dos números y genera 10 números aleatorios entre ellos (ambos incluidos). */
 fun ejercicio16() {
-    TODO("Ejercicio 16")
+    print("Introduce el primer número: ")
+    val a = readln().toInt()
+    print("Introduce el segundo número: ")
+    val b = readln().toInt()
+
+    val min = minOf(a, b)
+    val max = maxOf(a, b)
+
+    println("10 números aleatorios entre $min y $max:")
+    for (i in 1..10) {
+        val aleatorio = (min..max).random()
+        println(aleatorio)
+    }
 }
 
 /** 17) Contar (y mostrar por pantalla) las vocales, consonantes, números y espacios en blanco de una cadena
  *  de caracteres que se pedirá por pantalla. */
 fun ejercicio17() {
-    TODO("Ejercicio 17")
+    print("Introduce una cadena de caracteres: ")
+    val cadena = readln()
+
+    var vocales = 0
+    var consonantes = 0
+    var numeros = 0
+    var espacios = 0
+
+    for (c in cadena.lowercase()) {
+        if (c in "aeiouáéíóúü") {
+            vocales++
+        } else if (c in 'a'..'z' || c == 'ñ') {
+            consonantes++
+        } else if (c.isDigit()) {
+            numeros++
+        } else if (c == ' ') {
+            espacios++
+        }
+    }
+
+    println("Vocales: $vocales")
+    println("Consonantes: $consonantes")
+    println("Números: $numeros")
+    println("Espacios en blanco: $espacios")
 }
 
 /** 18) Reemplaza todas las aes de la cadena "La lluvia en Sevilla es una maravilla" por e's. */
 fun ejercicio18() {
-    TODO("Ejercicio 18")
+    val frase = "La lluvia en Sevilla es una maravilla"
+    val resultado = frase.replace('a', 'e')
+
+    println("Original:  $frase")
+    println("Resultado: $resultado")
 }
 
 /** 19) Crea una aplicación que pida 2 operandos. A continuación, muestre un menú con las siguientes operaciones:
@@ -250,7 +395,57 @@ fun ejercicio18() {
  *  Según la opción elegida, realizará la operación correspondiente. A continuación mostrará el resultado por
  *  consola. El programa terminará al pulsar la opción 8 (Salir). */
 fun ejercicio19() {
-    TODO("Ejercicio 19")
+    print("Introduce el primer operando: ")
+    var op1 = readln().replace(",", ".").toDouble()
+    print("Introduce el segundo operando: ")
+    var op2 = readln().replace(",", ".").toDouble()
+
+    var opcion = 0
+
+    while (opcion != 8) {
+        println()
+        println("Operandos actuales: $op1 y $op2")
+        println("1: Suma")
+        println("2: Resta")
+        println("3: Multiplicación")
+        println("4: División")
+        println("5: Potencia (op1 ^ op2)")
+        println("6: Módulo (resto de op1 / op2)")
+        println("7: Pedir 2 operandos nuevos")
+        println("8: Salir")
+        print("Elige una opción: ")
+
+        opcion = readln().toIntOrNull() ?: 0
+
+        when (opcion) {
+            1 -> println("$op1 + $op2 = ${op1 + op2}")
+            2 -> println("$op1 - $op2 = ${op1 - op2}")
+            3 -> println("$op1 * $op2 = ${op1 * op2}")
+            4 -> {
+                if (op2 == 0.0) {
+                    println("No se puede dividir entre 0")
+                } else {
+                    println("$op1 / $op2 = ${op1 / op2}")
+                }
+            }
+            5 -> println("$op1 ^ $op2 = ${Math.pow(op1, op2)}")
+            6 -> {
+                if (op2 == 0.0) {
+                    println("No se puede calcular el módulo con 0")
+                } else {
+                    println("$op1 % $op2 = ${op1 % op2}")
+                }
+            }
+            7 -> {
+                print("Introduce el primer operando: ")
+                op1 = readln().replace(",", ".").toDouble()
+                print("Introduce el segundo operando: ")
+                op2 = readln().replace(",", ".").toDouble()
+            }
+            8 -> println("Saliendo...")
+            else -> println("Opción no válida")
+        }
+    }
 }
 
 /** 20) Realizar la suma desde 1 hasta un número que se pedirá por pantalla (que debe ser mayor que 1.
@@ -259,7 +454,23 @@ fun ejercicio19() {
  *  Inserta un numero entero mayor que 1: 5
  *  La suma desde 1 hasta 5 es: 15      (1+2+3+4+5=15) */
 fun ejercicio20() {
-    TODO("Ejercicio 20")
+    var numero: Int?
+
+    do {
+        print("Inserta un numero entero mayor que 1: ")
+        numero = readln().trim().toIntOrNull()
+
+        if (numero == null || numero <= 1) {
+            println("Número no válido, debe ser un entero mayor que 1.")
+        }
+    } while (numero == null || numero <= 1)
+
+    var suma = 0
+    for (i in 1..numero) {
+        suma += i
+    }
+
+    println("La suma desde 1 hasta $numero es: $suma")
 }
 
 /** 21) Solicitar una frase al usuario. Eliminar los espacios y mostrar la cadena resultante por consola. */
