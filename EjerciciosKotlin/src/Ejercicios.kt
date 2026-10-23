@@ -475,7 +475,10 @@ fun ejercicio20() {
 
 /** 21) Solicitar una frase al usuario. Eliminar los espacios y mostrar la cadena resultante por consola. */
 fun ejercicio21() {
-    TODO("Ejercicio 21")
+    print("Introduce una frase: ")
+    val frase = readln()
+    val sinEspacios = frase.replace(" ", "")
+    println(sinEspacios)
 }
 
 /** 22) Pedir al usuario que nos escriba frases de forma infinita hasta que insertemos una cadena vacía.
@@ -489,12 +492,31 @@ fun ejercicio21() {
  *      Esta es la primera frase
  *      ... */
 fun ejercicio22() {
-    TODO("Ejercicio 22")
+    val resultado = StringBuilder()
+
+    println("Introduce un texto, cadena vacía para terminar")
+    var frase = readln()
+
+    while (frase.isNotEmpty()) {
+        resultado.appendLine("    $frase")
+        frase = readln()
+    }
+
+    println("Cadena resultante:")
+    println("----------------------------------------")
+    print(resultado)
 }
 
 /** 23) Solicitar una frase al usuario. Separarla por palabras y mostrarlas por consola (una por línea). */
 fun ejercicio23() {
-    TODO("Ejercicio 23")
+    print("Introduce una frase: ")
+    val frase = readln()
+
+    val palabras = frase.trim().split("\\s+".toRegex())
+
+    for (palabra in palabras) {
+        println(palabra)
+    }
 }
 
 /** 24) Pedir números enteros al usuario (positivos o negativos) y cuando introduzca un -1 terminará el programa.
@@ -507,7 +529,52 @@ fun ejercicio23() {
  *  La suma de los positivos es: 90
  *  La suma de los negativos es: -10 */
 fun ejercicio24() {
-    TODO("Ejercicio 24")
+    var mayor = 0
+    var menor = 0
+    var suma = 0
+    var sumaPositivos = 0
+    var sumaNegativos = 0
+    var cantidad = 0
+
+    while (true) {
+        print("Introduce un número entero (-1 para terminar): ")
+        val numero = readln().trim().toIntOrNull()
+
+        if (numero == null) {
+            println("Número no válido, inténtalo de nuevo.")
+            continue
+        }
+
+        if (numero == -1) {
+            break
+        }
+
+        if (cantidad == 0) {
+            mayor = numero
+            menor = numero
+        } else {
+            if (numero > mayor) mayor = numero
+            if (numero < menor) menor = numero
+        }
+
+        suma += numero
+        if (numero > 0) {
+            sumaPositivos += numero
+        } else if (numero < 0) {
+            sumaNegativos += numero
+        }
+        cantidad++
+    }
+
+    if (cantidad == 0) {
+        println("No se ha introducido ningún número.")
+    } else {
+        println("El menor es: $menor")
+        println("El mayor es: $mayor")
+        println("La suma es: $suma")
+        println("La suma de los positivos es: $sumaPositivos")
+        println("La suma de los negativos es: $sumaNegativos")
+    }
 }
 
 // ---------------------------------------------------------------------------- Voluntarios
@@ -515,22 +582,118 @@ fun ejercicio24() {
 /** 25) Voluntario: Pide un número por teclado e indica si es un número primo o no. Si se introduce un número
  *  menor o igual que 1, directamente no es primo. */
 fun ejercicio25() {
-    TODO("Ejercicio 25")
+    print("Introduce un número: ")
+    val numero = readln().trim().toIntOrNull()
+
+    if (numero == null) {
+        println("Número no válido.")
+        return
+    }
+
+    var esPrimo = numero > 1
+    var divisor = 2
+
+    while (esPrimo && divisor * divisor <= numero) {
+        if (numero % divisor == 0) {
+            esPrimo = false
+        }
+        divisor++
+    }
+
+    if (esPrimo) {
+        println("$numero es primo")
+    } else {
+        println("$numero no es primo")
+    }
 }
 
 /** 26) Voluntario: Muestra los números primos entre dos valores que se pedirán por pantalla. */
 fun ejercicio26() {
-    TODO("Ejercicio 26")
+    print("Introduce el primer valor: ")
+    val a = readln().trim().toIntOrNull()
+    print("Introduce el segundo valor: ")
+    val b = readln().trim().toIntOrNull()
+
+    if (a == null || b == null) {
+        println("Valores no válidos.")
+        return
+    }
+
+    val desde = minOf(a, b)
+    val hasta = maxOf(a, b)
+
+    println("Números primos entre $desde y $hasta:")
+    var encontrados = 0
+
+    for (n in desde..hasta) {
+        var esPrimo = n > 1
+        var divisor = 2
+
+        while (esPrimo && divisor * divisor <= n) {
+            if (n % divisor == 0) {
+                esPrimo = false
+            }
+            divisor++
+        }
+
+        if (esPrimo) {
+            print("$n ")
+            encontrados++
+        }
+    }
+    println()
+
+    if (encontrados == 0) {
+        println("No hay ningún número primo en ese rango.")
+    }
 }
 
 /** 27) Voluntario: Crear una aplicación que permita insertar números hasta que insertemos un -1.
  *  Mostrar el número de números introducidos. */
 fun ejercicio27() {
-    TODO("Ejercicio 27")
+    var cantidad = 0
+
+    while (true) {
+        print("Introduce un número (-1 para terminar): ")
+        val numero = readln().trim().toIntOrNull()
+
+        if (numero == null) {
+            println("Número no válido, inténtalo de nuevo.")
+            continue
+        }
+
+        if (numero == -1) {
+            break
+        }
+
+        cantidad++
+    }
+
+    println("Has introducido $cantidad números")
 }
 
 /** 28) Voluntario: Convertir una frase a mayúsculas o minúsculas (opción que elegirá el usuario) y mostrar el
  *  resultado por pantalla. */
 fun ejercicio28() {
-    TODO("Ejercicio 28")
+    print("Introduce una frase: ")
+    val frase = readln()
+
+    var opcion: Int?
+
+    do {
+        println("1: Convertir a mayúsculas")
+        println("2: Convertir a minúsculas")
+        print("Elige una opción: ")
+        opcion = readln().trim().toIntOrNull()
+
+        if (opcion != 1 && opcion != 2) {
+            println("Opción no válida.")
+        }
+    } while (opcion != 1 && opcion != 2)
+
+    if (opcion == 1) {
+        println(frase.uppercase())
+    } else {
+        println(frase.lowercase())
+    }
 }
